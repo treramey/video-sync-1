@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "./LoginForm";
+import authImage from "../../../assets/img/auth.jpg";
 
 // <===============Material-ui============================>
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +16,6 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import CardMedia from "@material-ui/core/CardMedia";
 import Paper from "@material-ui/core/Paper";
-import authImage from "../assets/img/auth.jpg";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,7 +75,7 @@ export default function LoginCard() {
             <Box mt={2}>
               <Alert severity="info" className={classes.alert}>
                 <div>
-                  Use <b>admin@devias.io</b> and password <b>admin</b>
+                  Use <b>test@email.com</b> and password <b>test</b>
                 </div>
               </Alert>
             </Box>

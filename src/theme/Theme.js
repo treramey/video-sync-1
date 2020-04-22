@@ -100,7 +100,7 @@ const themeConfig = {
       paper: "#282C34",
     },
     primary: {
-      main: "#605DB2",
+      main: "#01FFFF",
     },
     secondary: {
       main: "#E53232",
@@ -109,8 +109,8 @@ const themeConfig = {
       primary: "#e6e5e8",
       secondary: "#adb0bb",
     },
-    shadows: strongShadows,
   },
+  shadows: strongShadows,
 };
 
 export function createTheme() {

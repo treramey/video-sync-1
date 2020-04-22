@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LoginCard from "../../Components/loginCard";
+import LoginCard from "../../Components/auth/Login/LoginCard";
 
 export default class Login extends Component {
   render() {

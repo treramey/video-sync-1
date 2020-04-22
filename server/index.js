@@ -32,3 +32,11 @@ massive({
   .catch(err => {
     console.log(`Server Did NOT Connect ❌ ${err}`);
   });
+
+//<===============Auth Endpoints==========================>
+
+app.post("/auth/register");
+app.post("/auth/login");
+app.get("/auth/logout");
+
+//<=======================================================>
