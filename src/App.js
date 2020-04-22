@@ -8,7 +8,7 @@ import { createTheme } from "./theme/Theme";
 function App() {
   return (
     <ThemeProvider theme={createTheme()}>
-      <Routes />;
+      <Routes />
     </ThemeProvider>
   );
 }

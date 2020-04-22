@@ -95,7 +95,7 @@ const themeConfig = {
       focus: "rgba(255, 255, 255, 0.12)",
     },
     background: {
-      default: "#282C34",
+      default: "#1c1f22",
       dark: "#1c2025",
       paper: "#282C34",
     },
