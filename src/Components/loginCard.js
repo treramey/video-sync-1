@@ -61,6 +61,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 // <======================================================>
+
 export default function LoginCard() {
   const classes = useStyles();
   return (
@@ -69,7 +70,7 @@ export default function LoginCard() {
       <Container maxWidth="md">
         <Paper className={classes.card}>
           <CardContent className={classes.content}>
-            <div className="header">Sign in</div>
+            <div className="header">Sign In</div>
             <div className="subtitle">Sign in on the internal platform</div>
             <Box mt={2}>
               <Alert severity="info" className={classes.alert}>
