@@ -1,10 +1,22 @@
-import React from "react";
+import React, { Component } from "react";
 import RegisterCard from "../../Components/auth/Register/RegisterCard";
+import { connect } from "react-redux";
 
-export default function Register() {
-  return (
-    <div className="register">
-      <RegisterCard />
-    </div>
-  );
+class Register extends Component {
+  componentDidMount() {
+    if (this.props.user.email) {
+      this.props.history.push("/dashboard");
+    }
+  }
+  render() {
+    console.log(this.props.user);
+    return (
+      <div className="register">
+        <RegisterCard />
+      </div>
+    );
+  }
 }
+
+const mapStateToProps = reduxState => reduxState;
+export default connect(mapStateToProps)(Register);

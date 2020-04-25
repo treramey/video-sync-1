@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import LoginForm from "./LoginForm";
 import authImage from "../../../assets/img/auth.jpg";
 
@@ -64,6 +65,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function LoginCard() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleSubmitSuccess = () => {
+    history.push("/dashboard");
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -80,9 +86,7 @@ export default function LoginCard() {
               </Alert>
             </Box>
             <Box mt={3}>
-              <LoginForm
-              // onSubmitSuccess={handleSubmitSuccess}
-              />
+              <LoginForm onSubmitSuccess={handleSubmitSuccess} />
             </Box>
             <Box my={2}>
               <Divider />
@@ -97,7 +101,10 @@ export default function LoginCard() {
               before they sold out High Life.
             </div>
             <Box alignItems="center" display="flex" mt={3}>
-              <Avatar alt="Person" src="/static/images/avatars/avatar_2.png" />
+              <Avatar
+                alt="Person"
+                // src="/static/images/avatars/avatar_2.png"
+              />
               <Box ml={3}>
                 <div className="body2">Ekaterina Tankova</div>
                 <div className="body2">Manager at inVision</div>

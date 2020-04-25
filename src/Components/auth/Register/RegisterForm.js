@@ -1,21 +1,12 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import axios from "axios";
 
 // <======================Material-ui========================>
-import {
-  Box,
-  Button,
-  TextField,
-  FormHelperText,
-  makeStyles,
-} from "@material-ui/core";
-const useStyles = makeStyles(() => ({
-  root: {},
-}));
+import { Box, Button, TextField, FormHelperText } from "@material-ui/core";
 
-export default function RegisterForm() {
-  const classes = useStyles();
+export default function RegisterForm({ onSubmitSuccess }) {
   return (
     <Formik
       initialValues={{
@@ -33,21 +24,36 @@ export default function RegisterForm() {
           .required("Email is required"),
         password: Yup.string().min(7).max(255).required("Password is required"),
       })}
-      // onSubmit={};
+      onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+        const { email, firstName, lastName, password } = values;
+
+        axios
+          .post("/auth/register", { firstName, lastName, email, password })
+          .then(res => {
+            //set redux state
+            //push to dashboard
+            onSubmitSuccess();
+          })
+          .catch(error => {
+            const message =
+              (error.response && error.response.data.message) ||
+              "Something went wrong";
+            setStatus({ success: false });
+            setErrors({ submit: message });
+            setSubmitting(false);
+          });
+      }}
     >
       {({
         errors,
         handleBlur,
         handleChange,
+        handleSubmit,
         isSubmitting,
         touched,
         values,
       }) => (
-        <form
-        // className={clsx(classes.root, className)}
-        // onSubmit={handleSubmit}
-        // {...rest}
-        >
+        <form onSubmit={handleSubmit}>
           <TextField
             error={Boolean(touched.firstName && errors.firstName)}
             fullWidth

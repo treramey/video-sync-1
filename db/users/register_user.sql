@@ -1,12 +1,14 @@
 insert into users (
-    username,
+    first_name,
+    last_name,
     email,
     password
 ) values (
     $1,
     $2,
-    $3
+    $3,
+    $4
 )
 
-returning username, email
+returning first_name, email
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useHistory } from "react-router";
 import RegisterForm from "./RegisterForm";
 
 import {
@@ -31,6 +32,10 @@ const useStyles = makeStyles(theme => ({
 
 function RegisterCard() {
   const classes = useStyles();
+  const history = useHistory();
+  const handleSubmitSuccess = () => {
+    history.push("/dashboard");
+  };
   return (
     <div className={classes.root}>
       <Container maxWidth="sm">
@@ -43,9 +48,7 @@ function RegisterCard() {
               Sign up on the internal platform
             </Typography>
             <Box mt={3}>
-              <RegisterForm
-              //   onSubmitSuccess={handleSubmitSuccess}
-              />
+              <RegisterForm onSubmitSuccess={handleSubmitSuccess} />
             </Box>
             <Box my={2}>
               <Divider />

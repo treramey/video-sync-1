@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import LoginCard from "../../Components/auth/Login/LoginCard";
+import { connect } from "react-redux";
 
-export default class Login extends Component {
+class Login extends Component {
+  componentDidMount() {
+    if (this.props.user.email) {
+      this.props.history.push("/dashboard");
+    }
+  }
   render() {
+    console.log(this.props.user);
     return (
       <div className="login">
         <LoginCard />
@@ -10,3 +17,6 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = reduxState => reduxState;
+export default connect(mapStateToProps)(Login);

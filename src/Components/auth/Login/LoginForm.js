@@ -1,24 +1,21 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import axios from "axios";
+import { connect } from "react-redux";
+import { getUser } from "../../../ducks/reducer";
 
 // <===============Material-ui Imports====================>
-import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, TextField, FormHelperText } from "@material-ui/core";
 
 // <======================================================>
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-}));
-
-export default function LoginForm() {
-  const classes = useStyles();
+function LoginForm({ onSubmitSuccess, getUser }) {
   return (
     <Formik
       initialValues={{
-        email: "",
-        password: "",
+        email: "demo@example.com",
+        password: "demo",
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -28,7 +25,24 @@ export default function LoginForm() {
         password: Yup.string().max(255).required("Password is required"),
       })}
       onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
-        console.log(values);
+        const { email, password } = values;
+
+        axios
+          .post("/auth/login", { email, password })
+          .then(res => {
+            //set redux state
+            getUser(res.data);
+            //push to dashboard
+            onSubmitSuccess();
+          })
+          .catch(error => {
+            const message =
+              (error.response && error.response.data.message) ||
+              "Something went wrong";
+            setStatus({ success: false });
+            setErrors({ submit: message });
+            setSubmitting(false);
+          });
       }}
     >
       {({
@@ -41,7 +55,7 @@ export default function LoginForm() {
         values,
       }) => (
         <form
-          // noValidate
+          noValidate
           // className={clsx(classes.root, className)}
           onSubmit={handleSubmit}
           // {...rest}
@@ -85,7 +99,7 @@ export default function LoginForm() {
             </Button>
             {errors.submit && (
               <Box mt={3}>
-                <FormHelperText error>{errors.submit}></FormHelperText>
+                <FormHelperText error>{errors.submit}</FormHelperText>
               </Box>
             )}
           </Box>
@@ -94,3 +108,9 @@ export default function LoginForm() {
     </Formik>
   );
 }
+
+//redux subscribing
+
+const mapStateToProps = reduxState => reduxState;
+
+export default connect(mapStateToProps, { getUser })(LoginForm);

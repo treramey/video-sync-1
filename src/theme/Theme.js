@@ -83,6 +83,16 @@ const themeConfig = {
         backgroundColor: "rgba(0,0,0,0.075)",
       },
     },
+    MuiAppBar: {
+      colorPrimary: {
+        backgroundColor: "transparent",
+      },
+    },
+    MuiPaper: {
+      elevation4: {
+        boxShadow: "none",
+      },
+    },
   },
   palette: {
     type: "dark",
@@ -101,6 +111,7 @@ const themeConfig = {
     },
     primary: {
       main: "#01FFFF",
+      secondary: "#e6e5e8",
     },
     secondary: {
       main: "#E53232",
