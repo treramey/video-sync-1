@@ -41,7 +41,7 @@ function RegisterCard() {
       <Container maxWidth="sm">
         <Card className={classes.card}>
           <CardContent>
-            <Typography gutterBottom variant="h2" color="textPrimary">
+            <Typography gutterBottom variant="h1" color="textSecondary">
               Sign up
             </Typography>
             <Typography variant="subtitle1">

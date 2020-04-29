@@ -107,18 +107,18 @@ const themeConfig = {
     background: {
       default: "#1c1f22",
       dark: "#1c2025",
-      paper: "#282C34",
+      paper: "#252A30",
     },
     primary: {
-      main: "#01FFFF",
+      main: "#8C888A",
       secondary: "#e6e5e8",
     },
     secondary: {
       main: "#E53232",
     },
     text: {
-      primary: "#e6e5e8",
-      secondary: "#adb0bb",
+      primary: "#8C888A",
+      secondary: "#e6e5e8",
     },
   },
   shadows: strongShadows,

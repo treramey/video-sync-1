@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useHistory } from "react-router";
 import LoginForm from "./LoginForm";
 import authImage from "../../../assets/img/auth.jpg";
@@ -17,6 +17,7 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import CardMedia from "@material-ui/core/CardMedia";
 import Paper from "@material-ui/core/Paper";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,7 +82,7 @@ export default function LoginCard() {
             <Box mt={2}>
               <Alert severity="info" className={classes.alert}>
                 <div>
-                  Use <b>test@email.com</b> and password <b>test</b>
+                  Use <b>demo@example.com</b> and pwd <b>demo</b>
                 </div>
               </Alert>
             </Box>
@@ -91,15 +92,20 @@ export default function LoginCard() {
             <Box my={2}>
               <Divider />
             </Box>
-            <Link to="/register" className="body2">
+            <Link
+              component={RouterLink}
+              to="/register"
+              variant="body2"
+              color="textPrimary"
+            >
               Create new account
             </Link>
           </CardContent>
           <CardMedia className={classes.media} image={authImage} title="Cover">
-            <div className="subtitle">
+            {/* <div className="subtitle">
               Hella narvwhal Cosby sweater McSweeney&apos;s, salvia kitsch
               before they sold out High Life.
-            </div>
+            </div> */}
             <Box alignItems="center" display="flex" mt={3}>
               <Avatar
                 alt="Person"

@@ -1,21 +1,18 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import LoginCard from "../../Components/auth/Login/LoginCard";
 import { connect } from "react-redux";
 
-class Login extends Component {
-  componentDidMount() {
-    if (this.props.user.email) {
-      this.props.history.push("/dashboard");
+function Login({ user, history }) {
+  useEffect(() => {
+    if (user.email) {
+      history.push("/dashboard");
     }
-  }
-  render() {
-    console.log(this.props.user);
-    return (
-      <div className="login">
-        <LoginCard />
-      </div>
-    );
-  }
+  }, [user, history]);
+  return (
+    <div className="login">
+      <LoginCard />
+    </div>
+  );
 }
 
 const mapStateToProps = reduxState => reduxState;

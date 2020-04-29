@@ -28,7 +28,7 @@ export default function RegisterForm({ onSubmitSuccess }) {
         const { email, firstName, lastName, password } = values;
 
         axios
-          .post("/auth/register", { firstName, lastName, email, password })
+          .post("/api/auth/register", { firstName, lastName, email, password })
           .then(res => {
             //set redux state
             //push to dashboard

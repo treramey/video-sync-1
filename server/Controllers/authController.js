@@ -55,4 +55,11 @@ module.exports = {
     req.session.destroy();
     res.sendStatus(200);
   },
+  isAuthenticated: (req, res, next) => {
+    if (!req.session.user) {
+      return res.redirect("/login");
+    } else {
+      next();
+    }
+  },
 };

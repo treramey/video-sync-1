@@ -28,7 +28,7 @@ function LoginForm({ onSubmitSuccess, getUser }) {
         const { email, password } = values;
 
         axios
-          .post("/auth/login", { email, password })
+          .post("/api/auth/login", { email, password })
           .then(res => {
             //set redux state
             getUser(res.data);

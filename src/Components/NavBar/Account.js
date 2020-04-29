@@ -1,15 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { useHistory } from "react-router";
+import { Settings } from "react-feather";
 import { connect } from "react-redux";
+import { clearUser } from "../../ducks/reducer";
+import axios from "axios";
 import {
-  Avatar,
-  Box,
-  ButtonBase,
-  Hidden,
+  Tooltip,
+  IconButton,
   Menu,
   MenuItem,
-  Typography,
+  SvgIcon,
+  Box,
+  Avatar,
   makeStyles,
 } from "@material-ui/core";
 
@@ -24,26 +27,48 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Account({ user }) {
+function Account({ clearUser }) {
   const classes = useStyles();
   const history = useHistory();
+  const ref = useRef(null);
+  const [isOpen, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      handleClose();
+      await axios.get("/api/auth/logout");
+      await clearUser();
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
-      <Box
-        display="flex"
-        alignItems="center"
-        // component={ButtonBase}
-        // onClick={handleOpen}
-        // ref={ref}
-      >
-        <Hidden smDown>
-          <Typography variant="h4" color="secondary">
-            {`Welcome ${user.first_name}`}
-          </Typography>
-        </Hidden>
+      <Box display="flex" alignItems="center">
+        <Avatar
+          alt="User"
+          className={classes.avatar}
+          // src={account.user.avatar}
+        />
+        <Tooltip title="Settings">
+          <IconButton color="inherit" onClick={handleOpen} ref={ref}>
+            <SvgIcon fontSize="default">
+              <Settings />
+            </SvgIcon>
+          </IconButton>
+        </Tooltip>
       </Box>
       <Menu
-        // onClose={handleClose}
+        onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -51,24 +76,18 @@ function Account({ user }) {
         keepMounted
         PaperProps={{ className: classes.popover }}
         getContentAnchorEl={null}
-        // anchorEl={ref.current}
-        // open={isOpen}
+        anchorEl={ref.current}
+        open={isOpen}
       >
-        <MenuItem component={Link} to="/app/social/profile">
-          Profile
-        </MenuItem>
-        <MenuItem component={Link} to="/app/account">
+        <MenuItem component={RouterLink} to="/account">
           Account
         </MenuItem>
-        <MenuItem
-        // onClick={handleLogout}
-        >
-          Logout
-        </MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
   );
 }
+
 const mapStateToProps = reduxState => reduxState;
 
-export default connect(mapStateToProps)(Account);
+export default connect(mapStateToProps, { clearUser })(Account);

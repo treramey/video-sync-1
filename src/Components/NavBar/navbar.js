@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { AlignLeft, Settings } from "react-feather";
+import { Link as RouterLink } from "react-router-dom";
+import { AlignLeft } from "react-feather";
 import Account from "./Account";
+import Logo from "../../assets/cat3.svg";
 
 import {
   AppBar,
@@ -18,43 +19,39 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     minHeight: 80,
   },
+  avatar: {
+    height: 44,
+    width: 44,
+  },
 }));
 
 function Navbar() {
   const classes = useStyles();
   return (
-    <AppBar>
+    <AppBar position="absolute">
       <Toolbar className={classes.toolbar}>
-        <IconButton
-          className={classes.menuButton}
-          color="inherit"
-          //   onClick={onMobileNavOpen}
-        >
-          <SvgIcon fontSize="large">
-            <AlignLeft color="white" />
-          </SvgIcon>
-        </IconButton>
-
+        <Hidden lgUp>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            // onClick={onMobileNavOpen}
+          >
+            <SvgIcon fontSize="large">
+              <AlignLeft />
+            </SvgIcon>
+          </IconButton>
+        </Hidden>
         <Hidden mdDown>
-          <Link to="/">{/* <Logo /> */}</Link>
+          <IconButton size="small">
+            <RouterLink to="/">
+              <img alt="Logo" src={Logo} className={classes.avatar} />
+            </RouterLink>
+          </IconButton>
         </Hidden>
         <Box ml={2} flexGrow={1} />
-        {/* <Search /> */}
-        {/* <Contacts /> */}
-        {/* <Notifications /> */}
-        {/* <Settings /> */}
         <Box ml={2}>
           <Account />
         </Box>
-        <IconButton
-          className={classes.menuButton}
-          color="inherit"
-          //   onClick={onMobileNavOpen}
-        >
-          <SvgIcon fontSize="small">
-            <Settings color="white" />
-          </SvgIcon>
-        </IconButton>
       </Toolbar>
     </AppBar>
   );

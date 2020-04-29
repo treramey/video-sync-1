@@ -4,6 +4,7 @@ const express = require("express"),
   massive = require("massive"),
   session = require("express-session"),
   auth = require("./Controllers/authController"),
+  main = require("./Controllers/mainController"),
   { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env,
   port = SERVER_PORT,
   app = express();
@@ -36,8 +37,10 @@ massive({
 
 //<===============Auth Endpoints==========================>
 
-app.post("/auth/register", auth.register);
-app.post("/auth/login", auth.login);
-app.get("/auth/logout", auth.logout);
-
+app.post("/api/auth/register", auth.register);
+app.post("/api/auth/login", auth.login);
+app.get("/api/auth/logout", auth.logout);
 //<=======================================================>
+
+app.put("/api/update/:id", auth.isAuthenticated, main.update);
+app.put("/api/update/password/:id", main.updatePassword);

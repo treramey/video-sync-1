@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import NavBar from "../../Components/NavBar/navbar";
-import DashboardView from "../../Components/DashBoard/DashboardView";
+import AccountView from "../../Components/Account/AccountView";
 import { Container, makeStyles } from "@material-ui/core";
 import { connect } from "react-redux";
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Dashboard({ user, history }) {
+function Account({ user, history }) {
   const classes = useStyles();
   // useEffect(() => {
   //   if (!user.email) {
@@ -23,8 +23,8 @@ function Dashboard({ user, history }) {
   return (
     <div className={classes.root}>
       <NavBar />
-      <Container maxWidth="lg">
-        <DashboardView />
+      <Container maxWidth="md">
+        <AccountView />
       </Container>
     </div>
   );
@@ -32,4 +32,4 @@ function Dashboard({ user, history }) {
 
 const mapStateToProps = reduxState => reduxState;
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(Account);
