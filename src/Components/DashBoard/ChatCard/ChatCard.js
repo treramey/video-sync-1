@@ -3,33 +3,27 @@ import { Box, Card, CardHeader, Divider, makeStyles } from "@material-ui/core";
 import ThreadView from "./Thread/ThreadView";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
-  item: {
-    textAlign: "center",
-    flexGrow: 1,
+  root: {
+    // backgroundColor: theme.palette.background.dark,
+    height: 440,
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: theme.spacing(3, 2),
-    "&:not(:last-of-type)": {
-      borderRight: `1px solid ${theme.palette.divider}`,
-    },
+    overflow: "hidden",
+    position: "relative",
   },
 }));
 
 export default function ChatCard() {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
+    <Card>
       <CardHeader
         // action={<GenericMoreButton />}
         title="Chats"
       />
       <Divider />
-      <Box p={1} position="relative" minHeight={440}>
+      <Box p={1} position="relative" className={classes.root}>
         <ThreadView />
       </Box>
-      <Box display="flex"></Box>
     </Card>
   );
 }

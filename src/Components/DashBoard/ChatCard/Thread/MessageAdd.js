@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
     display: "flex",
     alignItems: "center",
-    padding: theme.spacing(1),
+    // padding: theme.spacing(1),
   },
   flex: {
     display: "flex",
@@ -30,7 +30,7 @@ export default function MessageAdd() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Paper variant="outlined" component={Box} flexGrow={1} p={1}>
+      <Paper component={Box} flexGrow={1} p={1} elevation={0}>
         <div className={classes.flex}>
           <Input
             className={classes.input}
@@ -52,12 +52,6 @@ export default function MessageAdd() {
           </IconButton>
         </div>
       </Paper>
-
-      <input
-        className={classes.fileInput}
-        //    ref={fileInputRef}
-        type="file"
-      />
     </div>
   );
 }

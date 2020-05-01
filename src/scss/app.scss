@@ -6,8 +6,7 @@
 
 // Base
 
-@import "./base/base", "./base/typography";
-
+@import "./base/base", "./base/typography", "./base/scroll";
 //components
 @import "../Pages/Login/login";
 @import "../Pages/Register/register";

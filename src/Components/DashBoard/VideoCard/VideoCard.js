@@ -30,12 +30,13 @@ export default function VideoCard() {
       />
       <Divider />
 
-      <Box minWidth={700} pt={3} pr={2} pl={2} pb={2}>
+      <Box pt={3} pr={2} pl={2} pb={2}>
         <ReactPlayer
           className={classes.reactPlayer}
           width="100%"
           height={400}
           url="https://www.youtube.com/watch?v=oUFJJNQGwhk"
+          controls={true}
           config={{
             youtube: {
               playerVars: { showinfo: 1 },

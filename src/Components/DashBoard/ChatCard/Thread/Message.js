@@ -5,10 +5,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(2),
     display: "flex",
+    wordWrap: "break-word",
   },
   avatar: {
-    height: 24,
-    width: 24,
+    height: 18,
+    width: 18,
+    marginRight: 8,
   },
   image: {
     cursor: "pointer",
@@ -18,58 +20,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Message() {
+export default function Message({ message }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Box
-        display="flex"
-        maxWidth={500}
-        // ml={sender.type === "user" ? "auto" : 0}
-      >
-        <Avatar
-          className={classes.avatar}
-          // src={sender.avatar}
-        />
+      <Box maxWidth={300}>
         <Box>
           <Box
             color={
-              "text.primary"
-              //   sender.type === "user" ? "secondary.contrastText" : "text.primary"
+              message.sender.type === "user"
+                ? "secondary.contrastText"
+                : "text.primary"
             }
-            px={2}
-            borderRadius="borderRadius"
-            // boxShadow={1}
+            // px={1}
+            display="flex"
           >
+            <Avatar className={classes.avatar} src={message.sender.avatar} />
             <Link color="inherit" component={"RouterLink"} to="#" variant="h6">
-              {"sender.name"}
+              {message.sender.name}
             </Link>
-            <Box mt={1}>
-              {"message.contentType" === "image" ? (
-                <Box mt={2} onClick={"() => setOpenedFile(message.body)"}>
-                  <img
-                    alt="Attachment"
-                    className={classes.image}
-                    // src={message.body}
-                  />
-                </Box>
-              ) : (
-                <Typography color="inherit" variant="body1">
-                  {"message.body"}
-                </Typography>
-              )}
-            </Box>
+          </Box>
+          <Box mt={1}>
+            <Typography color="inherit" variant="body2">
+              {message.body}
+            </Typography>
           </Box>
           <Box mt={1} display="flex" justifyContent="flex-end">
-            <Typography noWrap color="textSecondary" variant="caption">
-              {/* {moment(message.createdAt).fromNow()} */}
-            </Typography>
+            {/* <Typography noWrap color="textPrimary" variant="caption">
+              read
+            </Typography> */}
           </Box>
         </Box>
       </Box>
-      {/* {openedFile && (
-        <Lightbox large={openedFile} onClose={() => setOpenedFile(null)} />
-      )} */}
     </div>
   );
 }

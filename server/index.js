@@ -3,11 +3,15 @@ require("dotenv").config();
 const express = require("express"),
   massive = require("massive"),
   session = require("express-session"),
+  socket = require("socket.io"),
   auth = require("./Controllers/authController"),
   main = require("./Controllers/mainController"),
   { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env,
-  port = SERVER_PORT,
-  app = express();
+  PORT = SERVER_PORT || 5050,
+  app = express(),
+  http = require("http"),
+  server = http.createServer(app),
+  io = socket(server);
 
 app.use(express.json());
 
@@ -27,13 +31,18 @@ massive({
   .then(db => {
     app.set("db", db);
     console.log("The Satellite connected 🛰️ , Database conection is good 📡");
-    app.listen(port, () =>
-      console.log(`The Server is running on port ${SERVER_PORT}✅`)
-    );
   })
   .catch(err => {
     console.log(`Server Did NOT Connect ❌ ${err}`);
   });
+
+io.on("connection", socket => {
+  console.log("We have a new connection");
+
+  socket.on("disconnect", () => {
+    console.log("User has left");
+  });
+});
 
 //<===============Auth Endpoints==========================>
 
@@ -44,3 +53,7 @@ app.get("/api/auth/logout", auth.logout);
 
 app.put("/api/update/:id", auth.isAuthenticated, main.update);
 app.put("/api/update/password/:id", main.updatePassword);
+
+server.listen(PORT, () =>
+  console.log(`The Server is running on port ${SERVER_PORT}✅`)
+);
