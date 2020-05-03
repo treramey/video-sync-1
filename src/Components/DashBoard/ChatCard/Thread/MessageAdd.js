@@ -7,7 +7,6 @@ import {
   SvgIcon,
   makeStyles,
 } from "@material-ui/core";
-
 import { ArrowUp } from "react-feather";
 
 const useStyles = makeStyles(theme => ({
@@ -26,8 +25,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MessageAdd() {
+export default function MessageAdd({ setMessage, sendMessage, message }) {
   const classes = useStyles();
+
+  // const handleChange = event => {
+  //   event.persist();
+  //   setMessage(event.target.value);
+  // };
+
+  // const handleKeyUp = event => {
+  //   if (event.keyCode === 13) {
+  //     sendMessage(event);
+  //   }
+  // };
+
+  // const handleSend = event => {
+  //   sendMessage(event);
+  // };
+
   return (
     <div className={classes.root}>
       <Paper component={Box} flexGrow={1} p={1} elevation={0}>
@@ -36,15 +51,17 @@ export default function MessageAdd() {
             className={classes.input}
             disableUnderline
             fullWidth
-            //   value={body}
-            //   onChange={handleChange}
-            //   onKeyUp={handleKeyUp}
+            value={message}
+            onChange={({ target: { value } }) => setMessage(value)}
+            onKeyPress={event =>
+              event.key === "Enter" ? sendMessage(event) : null
+            }
             placeholder="Message"
           />
           <IconButton
             color="primary"
             // disabled={!body || disabled}
-            // onClick={handleSend}
+            onClick={e => sendMessage(e)}
           >
             <SvgIcon fontSize="small">
               <ArrowUp />

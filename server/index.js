@@ -11,7 +11,13 @@ const express = require("express"),
   app = express(),
   http = require("http"),
   server = http.createServer(app),
-  io = socket(server);
+  io = socket(server),
+  {
+    addUser,
+    removeUser,
+    getUser,
+    getUsersInRoom,
+  } = require("./Controllers/users");
 
 app.use(express.json());
 
@@ -30,6 +36,9 @@ massive({
 })
   .then(db => {
     app.set("db", db);
+    server.listen(PORT, () =>
+      console.log(`The Server is running on port ${SERVER_PORT}✅`)
+    );
     console.log("The Satellite connected 🛰️ , Database conection is good 📡");
   })
   .catch(err => {
@@ -37,10 +46,49 @@ massive({
   });
 
 io.on("connection", socket => {
-  console.log("We have a new connection");
+  socket.on("join", ({ name, email, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, email, room });
+    if (error) return callback(error);
+
+    socket.join(user.room);
+
+    socket.emit("message", { user: "Admin", body: `${user.name} has joined!` });
+    socket.broadcast
+      .to(user.room)
+      .emit("message", { user: "Admin", body: `${user.name} has joined` });
+
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
+
+    callback();
+  });
+
+  socket.on("sendMessage", (message, callback) => {
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit("message", {
+      user: { name: user.name, avatar: "" },
+      body: message,
+    });
+
+    callback();
+  });
 
   socket.on("disconnect", () => {
-    console.log("User has left");
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "Admin",
+        body: `${user.name} has left.`,
+      });
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+    }
   });
 });
 
@@ -53,7 +101,3 @@ app.get("/api/auth/logout", auth.logout);
 
 app.put("/api/update/:id", auth.isAuthenticated, main.update);
 app.put("/api/update/password/:id", main.updatePassword);
-
-server.listen(PORT, () =>
-  console.log(`The Server is running on port ${SERVER_PORT}✅`)
-);

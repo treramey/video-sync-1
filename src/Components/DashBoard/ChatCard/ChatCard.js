@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatCard() {
+function ChatCard() {
   const classes = useStyles();
   return (
     <Card>
@@ -27,3 +27,5 @@ export default function ChatCard() {
     </Card>
   );
 }
+
+export default ChatCard;
