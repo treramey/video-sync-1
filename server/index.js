@@ -9,9 +9,11 @@ const express = require("express"),
   { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env,
   PORT = SERVER_PORT || 5050,
   app = express(),
-  http = require("http"),
-  server = http.createServer(app),
-  io = socket(server),
+  io = socket(
+    app.listen(PORT, () =>
+      console.log(`The Server is running on port ${SERVER_PORT}✅`)
+    )
+  ),
   {
     addUser,
     removeUser,
@@ -36,9 +38,6 @@ massive({
 })
   .then(db => {
     app.set("db", db);
-    server.listen(PORT, () =>
-      console.log(`The Server is running on port ${SERVER_PORT}✅`)
-    );
     console.log("The Satellite connected 🛰️ , Database conection is good 📡");
   })
   .catch(err => {
@@ -47,38 +46,31 @@ massive({
 
 io.on("connection", socket => {
   socket.on("join", ({ name, email, room }, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, email, room });
+    let { error, user } = addUser({ id: socket.id, name, email, room });
+    console.log("this is line 52", user);
     if (error) return callback(error);
-
     socket.join(user.room);
-
     socket.emit("message", { user: "Admin", body: `${user.name} has joined!` });
     socket.broadcast
       .to(user.room)
       .emit("message", { user: "Admin", body: `${user.name} has joined` });
-
     io.to(user.room).emit("roomData", {
       room: user.room,
       users: getUsersInRoom(user.room),
     });
-
     callback();
   });
-
   socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
-
     io.to(user.room).emit("message", {
       user: { name: user.name, avatar: "" },
       body: message,
     });
-
     callback();
   });
-
   socket.on("disconnect", () => {
+    console.log("disconnect is hit");
     const user = removeUser(socket.id);
-
     if (user) {
       io.to(user.room).emit("message", {
         user: "Admin",

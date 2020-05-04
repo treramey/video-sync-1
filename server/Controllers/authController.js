@@ -9,7 +9,7 @@ module.exports = {
     const foundUser = await db.users.check_user(email);
     if (foundUser[0]) {
       return res.status(400).send({
-        message: "Email already in use",
+        message: "Email Already In Use",
       });
     }
 
@@ -23,7 +23,6 @@ module.exports = {
       hash
     );
     req.session.user = newUser[0];
-    // console.log(req);
     res.status(202).send(req.session.user);
   },
   login: async (req, res) => {
@@ -33,7 +32,7 @@ module.exports = {
     let foundUser = await db.users.check_user(email);
     if (!foundUser[0]) {
       return res.status(400).send({
-        message: "Email does not exist",
+        message: "Incorrect email or password",
       });
     }
     // check authentication
@@ -41,7 +40,7 @@ module.exports = {
 
     if (!authenticated) {
       return res.status(401).send({
-        message: "Password is incorrect",
+        message: "Incorrect email or password",
       });
     }
 

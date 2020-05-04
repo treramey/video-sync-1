@@ -10,5 +10,5 @@ insert into users (
     $4
 )
 
-returning first_name, email
+returning first_name, last_name, email
 

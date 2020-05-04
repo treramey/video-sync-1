@@ -3,10 +3,11 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { Box, Divider, makeStyles } from "@material-ui/core";
 import MessageAdd from "./MessageAdd";
 import Message from "./Message";
-import io from "socket.io-client";
 import { connect } from "react-redux";
 
-let socket;
+import io from "socket.io-client";
+const ENDPOINT = "http://localhost:5050";
+const socket = io(ENDPOINT);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,47 +18,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.dark,
   },
 }));
-
-const messages = [
-  {
-    id: 1,
-    body: "hello good friend",
-    sender: {
-      type: "user",
-      name: "Trevor",
-      avatar: "",
-    },
-  },
-  {
-    id: 2,
-    body: "Im doing good ",
-    sender: {
-      type: "notUser",
-      name: "Jon",
-      avatar: "",
-    },
-  },
-  {
-    id: 3,
-    body: "Thats good to hear",
-    sender: {
-      type: "user",
-      name: "Trevor",
-      avatar: "",
-    },
-  },
-  {
-    id: 5,
-    body:
-      "https://github.com/creativetimofficial/black-dashboard/blob/master/assets/scss/black-dashboard/plugins/_plugin-perfect-scrollbar.scss",
-    sender: {
-      type: "user",
-      name: "Jon",
-      avatar:
-        "https://img.pngio.com/avatar-user-computer-icons-software-deve-254409-png-images-pngio-png-avatar-900_540.png",
-    },
-  },
-];
 
 function ThreadView({ user }) {
   const classes = useStyles();
@@ -81,12 +41,9 @@ function ThreadView({ user }) {
   }
 
   useEffect(() => {
-    //remove Trevor and demo when finished with the dashboard
     const name = first_name;
     const userEmail = email;
     const room = "main";
-
-    socket = io(ENDPOINT);
 
     setName(name);
     setEmail(userEmail);
@@ -97,10 +54,10 @@ function ThreadView({ user }) {
         console.log(error);
       }
     });
-    // return () => {
-    //   socket.emit("disconnect");
-    //   socket.off();
-    // };
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
   }, [ENDPOINT, first_name, email]);
 
   useEffect(() => {
@@ -110,17 +67,16 @@ function ThreadView({ user }) {
   }, [thread]);
 
   useEffect(() => {
-    if (messages) {
+    if (thread) {
       scrollMessagesToBottom();
     }
     // eslint-disable-next-line
-  }, [messages]);
+  }, [thread]);
 
   const sendMessage = event => {
     event.preventDefault();
 
     if (message) {
-      console.log(message);
       //SOME TING WONG
       socket.emit("sendMessage", message, () => setMessage(""));
     }

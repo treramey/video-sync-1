@@ -2,11 +2,13 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
+import { connect } from "react-redux";
+import { getUser } from "../../../ducks/reducer";
 
 // <======================Material-ui========================>
 import { Box, Button, TextField, FormHelperText } from "@material-ui/core";
 
-export default function RegisterForm({ onSubmitSuccess }) {
+function RegisterForm({ onSubmitSuccess, getUser }) {
   return (
     <Formik
       initialValues={{
@@ -31,6 +33,7 @@ export default function RegisterForm({ onSubmitSuccess }) {
           .post("/api/auth/register", { firstName, lastName, email, password })
           .then(res => {
             //set redux state
+            getUser(res.data);
             //push to dashboard
             onSubmitSuccess();
           })
@@ -106,9 +109,6 @@ export default function RegisterForm({ onSubmitSuccess }) {
             value={values.password}
             variant="outlined"
           />
-          {Boolean(touched.policy && errors.policy) && (
-            <FormHelperText error>{errors.policy}</FormHelperText>
-          )}
           <Box mt={2}>
             <Button
               color="secondary"
@@ -120,9 +120,18 @@ export default function RegisterForm({ onSubmitSuccess }) {
             >
               Create account
             </Button>
+            {errors.submit && (
+              <Box mt={3}>
+                <FormHelperText error>{errors.submit}</FormHelperText>
+              </Box>
+            )}
           </Box>
         </form>
       )}
     </Formik>
   );
 }
+
+const mapStateToProps = reduxState => reduxState;
+
+export default connect(mapStateToProps, { getUser })(RegisterForm);
