@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Box, Divider, makeStyles } from "@material-ui/core";
 import MessageAdd from "./MessageAdd";
 import Message from "./Message";
-import { connect } from "react-redux";
 
-import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5050";
-const socket = io(ENDPOINT);
+// import io from "socket.io-client";
+// let socket;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,18 +17,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ThreadView({ user }) {
+function ThreadView({ setMessage, thread, message, sendMessage }) {
   const classes = useStyles();
-  const { email, first_name } = user;
+
   const messagesRef = useRef(null);
-  const [name, setName] = useState("");
-  // eslint-disable-next-line
-  const [userEmail, setEmail] = useState("");
-  // eslint-disable-next-line
-  const [room, setRoom] = useState("");
-  const [message, setMessage] = useState("");
-  const [thread, setThread] = useState([]);
-  const ENDPOINT = "localhost:5050";
 
   function scrollMessagesToBottom() {
     if (messagesRef.current) {
@@ -39,48 +29,12 @@ function ThreadView({ user }) {
         messagesRef.current._container.scrollHeight;
     }
   }
-
-  useEffect(() => {
-    const name = first_name;
-    const userEmail = email;
-    const room = "main";
-
-    setName(name);
-    setEmail(userEmail);
-    setRoom(room);
-
-    socket.emit("join", { name, email, room }, error => {
-      if (error) {
-        console.log(error);
-      }
-    });
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
-  }, [ENDPOINT, first_name, email]);
-
-  useEffect(() => {
-    socket.on("message", message => {
-      setThread([...thread, message]);
-    });
-  }, [thread]);
-
   useEffect(() => {
     if (thread) {
       scrollMessagesToBottom();
     }
     // eslint-disable-next-line
   }, [thread]);
-
-  const sendMessage = event => {
-    event.preventDefault();
-
-    if (message) {
-      //SOME TING WONG
-      socket.emit("sendMessage", message, () => setMessage(""));
-    }
-  };
 
   return (
     <div className={classes.root}>
@@ -93,7 +47,11 @@ function ThreadView({ user }) {
       >
         {thread.length > 0 &&
           thread.map((message, index) => (
-            <Message key={index} message={message} name={name}></Message>
+            <Message
+              key={index}
+              message={message}
+              avatar={message.user.avatar}
+            ></Message>
           ))}
       </Box>
       <Divider />
@@ -106,6 +64,5 @@ function ThreadView({ user }) {
     </div>
   );
 }
-const mapStateToProps = reduxState => reduxState;
 
-export default connect(mapStateToProps)(ThreadView);
+export default ThreadView;

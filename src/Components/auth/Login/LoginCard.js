@@ -11,7 +11,7 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 // import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
-import Avatar from "@material-ui/core/Avatar";
+// import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -102,20 +102,7 @@ export default function LoginCard() {
             </Link>
           </CardContent>
           <CardMedia className={classes.media} image={authImage} title="Cover">
-            {/* <div className="subtitle">
-              Hella narvwhal Cosby sweater McSweeney&apos;s, salvia kitsch
-              before they sold out High Life.
-            </div> */}
-            <Box alignItems="center" display="flex" mt={3}>
-              <Avatar
-                alt="Person"
-                // src="/static/images/avatars/avatar_2.png"
-              />
-              <Box ml={3}>
-                <div className="body2">Ekaterina Tankova</div>
-                <div className="body2">Manager at inVision</div>
-              </Box>
-            </Box>
+            {/* <div className="subtitle">Welcome to Vid-Sync</div> */}
           </CardMedia>
         </Paper>
       </Container>

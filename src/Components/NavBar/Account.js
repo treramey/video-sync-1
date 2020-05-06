@@ -5,6 +5,7 @@ import { Settings } from "react-feather";
 import { connect } from "react-redux";
 import { clearUser } from "../../ducks/reducer";
 import axios from "axios";
+
 import {
   Tooltip,
   IconButton,
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Account({ clearUser }) {
+function Account({ user, clearUser }) {
   const classes = useStyles();
   const history = useHistory();
   const ref = useRef(null);
@@ -47,18 +48,16 @@ function Account({ clearUser }) {
       await axios.get("/api/auth/logout");
       await clearUser();
       history.push("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <>
       <Box display="flex" alignItems="center">
-        <Avatar
-          alt="User"
-          className={classes.avatar}
-          // src={account.user.avatar}
-        />
+        <Avatar alt="User" className={classes.avatar} src={user.avatar} />
         <Tooltip title="Settings">
           <IconButton color="inherit" onClick={handleOpen} ref={ref}>
             <SvgIcon fontSize="default">

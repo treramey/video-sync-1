@@ -33,10 +33,7 @@ export default function Profile({ user }) {
           flexDirection="column"
           textAlign="center"
         >
-          <Avatar
-            className={classes.avatar}
-            //   src={user.avatar}
-          />
+          <Avatar className={classes.avatar} src={user.avatar} />
           <Typography
             className={classes.name}
             gutterBottom

@@ -15,11 +15,11 @@ const useStyles = makeStyles(theme => ({
 
 function Dashboard({ user, history }) {
   const classes = useStyles();
-  useEffect(() => {
-    if (!user.email) {
-      history.push("/");
-    }
-  }, [user, history]);
+  // useEffect(() => {
+  //   if (!user.email) {
+  //     history.push("/");
+  //   }
+  // }, [user, history]);
   return (
     <div className={classes.root}>
       <NavBar />

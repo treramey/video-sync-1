@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Message({ message, name }) {
+export default function Message({ message, avatar }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -28,9 +28,10 @@ export default function Message({ message, name }) {
         <Box>
           <Box
             color={
-              message.user.name === name
-                ? "secondary.contrastText"
-                : "text.primary"
+              "secondary.contrastText"
+              // message.user.name === name
+              // ?
+              // : "text.primary"
             }
             // px={1}
             display="flex"
@@ -38,13 +39,7 @@ export default function Message({ message, name }) {
             {message.user === "Admin" ? (
               <div></div>
             ) : (
-              <Avatar
-                className={classes.avatar}
-                src={
-                  message.user.avatar ||
-                  "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
-                }
-              />
+              <Avatar className={classes.avatar} src={avatar} />
             )}
 
             <Typography color="inherit" variant="h6">

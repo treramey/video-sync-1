@@ -45,10 +45,12 @@ massive({
   });
 
 io.on("connection", socket => {
-  socket.on("join", ({ name, email, room }, callback) => {
-    let { error, user } = addUser({ id: socket.id, name, email, room });
-    console.log("this is line 52", user);
-    if (error) return callback(error);
+  socket.on("join", ({ name, avatar, room }, callback) => {
+    let { error, user } = addUser({ id: socket.id, name, avatar, room });
+    // console.log("JOIN", user);
+    if (error) {
+      return callback(error);
+    }
     socket.join(user.room);
     socket.emit("message", { user: "Admin", body: `${user.name} has joined!` });
     socket.broadcast
@@ -63,13 +65,24 @@ io.on("connection", socket => {
   socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
     io.to(user.room).emit("message", {
-      user: { name: user.name, avatar: "" },
+      user: { name: user.name, avatar: user.avatar },
       body: message,
     });
     callback();
   });
+  socket.on("sendURL", Url => {
+    const user = getUser(socket.id);
+    io.to(user.room).emit("Url", Url);
+  });
+
+  socket.on("sendPlayerState", state => {
+    const user = getUser(socket.id);
+    // console.log("log from sendplayer", state);
+    io.to(user.room).emit("playerState", state);
+  });
+
   socket.on("disconnect", () => {
-    console.log("disconnect is hit");
+    // console.log("disconnect is hit");
     const user = removeUser(socket.id);
     if (user) {
       io.to(user.room).emit("message", {
@@ -92,4 +105,5 @@ app.get("/api/auth/logout", auth.logout);
 //<=======================================================>
 
 app.put("/api/update/:id", auth.isAuthenticated, main.update);
+app.delete("/api/delete/:id", main.delete);
 app.put("/api/update/password/:id", main.updatePassword);

@@ -20,8 +20,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function VideoCard() {
+export default function VideoCard({
+  Url,
+  playing,
+  setPlaying,
+  sendPlayerState,
+  currentUrl,
+}) {
   const classes = useStyles();
+
+  const handlePlay = () => {
+    if (playing === false) {
+      sendPlayerState(true);
+    }
+  };
+  const handlePause = () => {
+    if (playing === true) {
+      sendPlayerState(false);
+    }
+  };
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -30,21 +48,16 @@ export default function VideoCard() {
       />
       <Divider />
 
-      <Box pt={3} pr={2} pl={2} pb={2}>
+      <Box pt={2} pr={2} pl={2} pb={2}>
         <ReactPlayer
           className={classes.reactPlayer}
           width="100%"
           height={400}
-          url="https://www.youtube.com/watch?v=oUFJJNQGwhk"
+          url={currentUrl}
           controls={true}
-          config={{
-            youtube: {
-              playerVars: { showinfo: 1 },
-            },
-            facebook: {
-              appId: "12345",
-            },
-          }}
+          playing={playing}
+          onPlay={handlePlay}
+          onPause={handlePause}
         />
       </Box>
     </Card>

@@ -5,15 +5,16 @@ import ThreadView from "./Thread/ThreadView";
 const useStyles = makeStyles(theme => ({
   root: {
     // backgroundColor: theme.palette.background.dark,
-    height: 440,
+    height: 432,
     display: "flex",
     overflow: "hidden",
     position: "relative",
   },
 }));
 
-function ChatCard() {
+function ChatCard({ setMessage, message, sendMessage, thread}) {
   const classes = useStyles();
+  // console.log(avatar);
   return (
     <Card>
       <CardHeader
@@ -22,7 +23,13 @@ function ChatCard() {
       />
       <Divider />
       <Box p={1} position="relative" className={classes.root}>
-        <ThreadView />
+        <ThreadView
+          thread={thread}
+          sendMessage={sendMessage}
+          message={message}
+          setMessage={setMessage}
+         
+        />
       </Box>
     </Card>
   );

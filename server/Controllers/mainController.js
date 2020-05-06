@@ -12,6 +12,22 @@ module.exports = {
       })
       .catch(error => console.log(error));
   },
+  delete: (req, res) => {
+    const { id } = req.params,
+      db = req.app.get("db");
+
+    // console.log(id);
+
+    db.users
+      .delete_user(id)
+      .then(() => {
+        req.session.destroy();
+        res.sendStatus(200);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
 
   updatePassword: (req, res) => {
     const { id } = req.params,

@@ -1,15 +1,17 @@
 const users = [];
 
-const addUser = ({ id, name, email, room }) => {
+const addUser = ({ id, name, avatar, room }) => {
   room = room.trim().toLowerCase();
 
-  const existingUser = users.find(
-    user => user.room === room && user.email === email
-  );
+  // const existingUser = users.find(
+  //   user => user.room === room && user.name === name
+  // );
 
-  if (existingUser) return { error: "Already in room" };
+  // console.log("user line 8", users);
 
-  const user = { id, name, email, room };
+  // if (existingUser) return { error: "Already in room" };
+
+  const user = { id, name, avatar, room };
 
   users.push(user);
 
@@ -18,8 +20,14 @@ const addUser = ({ id, name, email, room }) => {
 
 const removeUser = id => {
   const index = users.findIndex(user => user.id === id);
+  // console.log("line 21 use.js", id);
+  // console.log(index);
 
-  if (index !== -1) return users.splice(index, 1)[0];
+  if (index)
+    return () => {
+      // console.log("user.js splice");
+      users.splice(index, 1);
+    };
 };
 
 const getUser = id => users.find(user => user.id === id);

@@ -9,7 +9,7 @@ class Register extends Component {
     }
   }
   render() {
-    console.log(this.props.user);
+    // console.log(this.props.user);
     return (
       <div className="register">
         <RegisterCard />
