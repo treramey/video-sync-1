@@ -3,6 +3,7 @@ import NavBar from "../../Components/NavBar/navbar";
 import AccountView from "../../Components/Account/AccountView";
 import { Container, makeStyles } from "@material-ui/core";
 import { connect } from "react-redux";
+import FadeIn from "react-fade-in";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +25,9 @@ function Account({ user, history }) {
     <div className={classes.root}>
       <NavBar />
       <Container maxWidth="md">
-        <AccountView />
+        <FadeIn>
+          <AccountView />
+        </FadeIn>
       </Container>
     </div>
   );

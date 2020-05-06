@@ -3,6 +3,7 @@ import NavBar from "../../Components/NavBar/navbar";
 import DashboardView from "../../Components/DashBoard/DashboardView";
 import { Container, makeStyles } from "@material-ui/core";
 import { connect } from "react-redux";
+import FadeIn from "react-fade-in";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,16 +16,18 @@ const useStyles = makeStyles(theme => ({
 
 function Dashboard({ user, history }) {
   const classes = useStyles();
-  // useEffect(() => {
-  //   if (!user.email) {
-  //     history.push("/");
-  //   }
-  // }, [user, history]);
+  useEffect(() => {
+    if (!user.email) {
+      history.push("/");
+    }
+  }, [user, history]);
   return (
     <div className={classes.root}>
       <NavBar />
       <Container maxWidth="lg">
-        <DashboardView />
+        <FadeIn>
+          <DashboardView />
+        </FadeIn>
       </Container>
     </div>
   );

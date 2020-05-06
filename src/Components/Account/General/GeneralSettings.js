@@ -48,7 +48,7 @@ function GeneralSettings({ user, updateUser }) {
         const { email, firstName, lastName } = values;
 
         axios
-          .put(`/apiupdate/${user.user_id}`, {
+          .put(`/api/update/${user.user_id}`, {
             email,
             firstName,
             lastName,

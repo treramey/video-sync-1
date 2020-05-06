@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { clearUser } from "../../../ducks/reducer";
 import axios from "axios";
+import FadeIn from "react-fade-in";
 
 import {
   Box,
@@ -65,44 +66,46 @@ function Nuclear({ user, clearUser }) {
         isSubmitting,
         touched,
       }) => (
-        <form onSubmit={handleSubmit}>
-          <Card className={classes.root}>
-            <CardHeader title="Are you sure your want to do this? 😢" />
-            <Divider />
-            <CardContent>
-              <Grid container spacing={3}>
-                <Grid item md={4} sm={6} xs={12}>
-                  <TextField
-                    error={Boolean(
-                      touched.deleteConfirm && errors.deleteConfirm
-                    )}
-                    fullWidth
-                    helperText={touched.deleteConfirm && errors.deleteConfirm}
-                    label='Type " DELETE " to confirm'
-                    name="deleteConfirm"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="delete"
-                    variant="outlined"
-                    autoComplete="off"
-                    color="secondary"
-                  />
+        <FadeIn>
+          <form onSubmit={handleSubmit}>
+            <Card className={classes.root}>
+              <CardHeader title="Are you sure your want to do this? 😢" />
+              <Divider />
+              <CardContent>
+                <Grid container spacing={3}>
+                  <Grid item md={4} sm={6} xs={12}>
+                    <TextField
+                      error={Boolean(
+                        touched.deleteConfirm && errors.deleteConfirm
+                      )}
+                      fullWidth
+                      helperText={touched.deleteConfirm && errors.deleteConfirm}
+                      label='Type " DELETE " to confirm'
+                      name="deleteConfirm"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="delete"
+                      variant="outlined"
+                      autoComplete="off"
+                      color="secondary"
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              {errors.submit && (
-                <Box mt={3}>
-                  <FormHelperText error>{errors.submit}</FormHelperText>
-                </Box>
-              )}
-            </CardContent>
-            <Divider />
-            <Box p={2} display="flex" justifyContent="flex-end">
-              <Button disabled={isSubmitting} type="submit">
-                Delete my account
-              </Button>
-            </Box>
-          </Card>
-        </form>
+                {errors.submit && (
+                  <Box mt={3}>
+                    <FormHelperText error>{errors.submit}</FormHelperText>
+                  </Box>
+                )}
+              </CardContent>
+              <Divider />
+              <Box p={2} display="flex" justifyContent="flex-end">
+                <Button disabled={isSubmitting} type="submit">
+                  Delete my account
+                </Button>
+              </Box>
+            </Card>
+          </form>
+        </FadeIn>
       )}
     </Formik>
   );

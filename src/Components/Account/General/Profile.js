@@ -1,5 +1,4 @@
 import React from "react";
-import { Upload } from "react-feather";
 import {
   Avatar,
   Box,
@@ -51,7 +50,7 @@ export default function Profile({ user }) {
         </Box>
       </CardContent>
       <CardActions>
-        <Button fullWidth variant="text" startIcon={<Upload />}>
+        <Button fullWidth variant="text">
           Upload Avatar
         </Button>
       </CardActions>

@@ -2,6 +2,7 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useHistory } from "react-router";
 import RegisterForm from "./RegisterForm";
+import FadeIn from "react-fade-in";
 
 import {
   Box,
@@ -41,26 +42,28 @@ function RegisterCard() {
       <Container maxWidth="sm">
         <Card className={classes.card}>
           <CardContent>
-            <Typography gutterBottom variant="h1" color="textSecondary">
-              Sign up
-            </Typography>
-            <Typography variant="subtitle1">
-              Sign up on the internal platform
-            </Typography>
-            <Box mt={3}>
-              <RegisterForm onSubmitSuccess={handleSubmitSuccess} />
-            </Box>
-            <Box my={2}>
-              <Divider />
-            </Box>
-            <Link
-              component={RouterLink}
-              to="/"
-              variant="body2"
-              color="textSecondary"
-            >
-              Have an account?
-            </Link>
+            <FadeIn>
+              <Typography gutterBottom variant="h1" color="textSecondary">
+                Sign up
+              </Typography>
+              <Typography variant="subtitle1">
+                Sign up on the internal platform
+              </Typography>
+              <Box mt={3}>
+                <RegisterForm onSubmitSuccess={handleSubmitSuccess} />
+              </Box>
+              <Box my={2}>
+                <Divider />
+              </Box>
+              <Link
+                component={RouterLink}
+                to="/"
+                variant="body2"
+                color="textSecondary"
+              >
+                Have an account?
+              </Link>
+            </FadeIn>
           </CardContent>
         </Card>
       </Container>

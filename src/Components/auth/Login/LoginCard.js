@@ -2,22 +2,24 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useHistory } from "react-router";
 import LoginForm from "./LoginForm";
-import authImage from "../../../assets/img/auth.jpg";
+import authImage from "../../../assets/img/auth3.jpg";
 
 // <===============Material-ui============================>
 import { makeStyles } from "@material-ui/core/styles";
 // import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
-// import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
-// import Avatar from "@material-ui/core/Avatar";
+import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import CardMedia from "@material-ui/core/CardMedia";
 import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
+import FadeIn from "react-fade-in";
+import { PlayCircle } from "react-feather";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,32 +79,44 @@ export default function LoginCard() {
       <Container maxWidth="md">
         <Paper className={classes.card}>
           <CardContent className={classes.content}>
-            <div className="header">Sign In</div>
-            <div className="subtitle">Sign in on the internal platform</div>
-            <Box mt={2}>
-              <Alert severity="info" className={classes.alert}>
-                <div>
-                  Use <b>demo@example.com</b> and pwd <b>demo</b>
-                </div>
-              </Alert>
-            </Box>
-            <Box mt={3}>
-              <LoginForm onSubmitSuccess={handleSubmitSuccess} />
-            </Box>
-            <Box my={2}>
-              <Divider />
-            </Box>
-            <Link
-              component={RouterLink}
-              to="/register"
-              variant="body2"
-              color="textPrimary"
-            >
-              Create new account
-            </Link>
+            <FadeIn>
+              <div className="header">Sign In</div>
+              <div className="subtitle">Your Welcome To Sign In </div>
+              <Box mt={2}>
+                <Alert severity="info" className={classes.alert}>
+                  <div>
+                    Use <b>demo@example.com</b> and pwd <b>demo</b>
+                  </div>
+                </Alert>
+              </Box>
+              <Box mt={3}>
+                <LoginForm onSubmitSuccess={handleSubmitSuccess} />
+              </Box>
+              <Box my={2}>
+                <Divider />
+              </Box>
+              <Link
+                component={RouterLink}
+                to="/register"
+                variant="body2"
+                color="textPrimary"
+              >
+                Create new account
+              </Link>
+            </FadeIn>
           </CardContent>
           <CardMedia className={classes.media} image={authImage} title="Cover">
-            {/* <div className="subtitle">Welcome to Vid-Sync</div> */}
+            <Box alignItems="center" display="flex" mt={3}>
+              {/* <Avatar alt="Person" src={PlayCircle} /> */}
+              <Box ml={1}>
+                <Typography color="textSecondary" variant="h1">
+                  Video-Sync
+                </Typography>
+                <Typography color="textSecondary" variant="subtitle1">
+                  Lets you watch together
+                </Typography>
+              </Box>
+            </Box>
           </CardMedia>
         </Paper>
       </Container>
