@@ -6,6 +6,7 @@ const express = require("express"),
   socket = require("socket.io"),
   auth = require("./Controllers/authController"),
   main = require("./Controllers/mainController"),
+  path = require("path"),
   { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env,
   PORT = SERVER_PORT || 5050,
   app = express(),
@@ -22,6 +23,12 @@ const express = require("express"),
   } = require("./Controllers/users");
 
 app.use(express.json());
+
+app.use(express.static(__dirname + "/../build"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 app.use(
   session({
