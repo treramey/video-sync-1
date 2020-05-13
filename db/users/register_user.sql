@@ -1,12 +1,19 @@
 insert into users (
     first_name,
     last_name,
-    email,
-    password
+    email
+    
 ) values (
     $1,
     $2,
-    $3,
+    $3
+);
+
+insert into password(
+    user_id ,
+    password
+)values(
+    (select max(user_id) from users),
     $4
 );
 

@@ -19,3 +19,9 @@ create table if not exists rooms(
     room_name varchar(20),
     user_id int references users(user_id)
 )
+
+create table if not exists password(
+  password_id serial primary key,
+  user_id int references users(user_id),
+  password varchar(250)
+)
