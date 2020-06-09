@@ -9,7 +9,7 @@ Hi! **Vid-Sync** A video syncing and realtime chat app that acts as a central lo
 - Won the best technology implemented award for my project.
 
 ## Demo
-[![Demo Doccou alpha](https://gifs.com/gif/vidsync-gZqNjk)](https://www.loom.com/share/455487ab1ded4aa49f4617e03cbd561e)
+[![Demo VidSync](https://j.gifs.com/gZqNjk.gif)](https://www.loom.com/share/455487ab1ded4aa49f4617e03cbd561e)
 
 ## Available Scripts
 
