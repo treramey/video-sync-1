@@ -1,4 +1,13 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Welcome to Vid-Sync!
+
+Hi! **Vid-Sync** A video syncing and realtime chat app that acts as a central location for watching videos related to web development and software engineering with friends.
+
+- Individual Project  
+- The project was completed in two weeks.  
+- External technologies learned for the project: Material-UI, Socket.io, and SASS.  
+- Made a realtime chat instance to communicate when watching videos together  
+- Won the best technology implemented award for my project.
+
 
 ## Available Scripts
 
