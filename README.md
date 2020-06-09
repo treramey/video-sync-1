@@ -8,6 +8,8 @@ Hi! **Vid-Sync** A video syncing and realtime chat app that acts as a central lo
 - Made a realtime chat instance to communicate when watching videos together  
 - Won the best technology implemented award for my project.
 
+## Demo
+[![Demo Doccou alpha](http://share.gifyoutube.com/KzB6Gb.gif)](https://www.youtube.com/watch?v=ek1j272iAmc)
 
 ## Available Scripts
 
