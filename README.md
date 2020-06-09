@@ -1,6 +1,6 @@
 # Welcome to Vid-Sync!
 
-Hi! **Vid-Sync** A video syncing and realtime chat app that acts as a central location for watching videos related to web development and software engineering with friends.
+Hi! **Vid-Sync** is a video syncing and realtime chat app that acts as a central location for watching videos related to web development and software engineering with friends.
 
 - Individual Project  
 - The project was completed in two weeks.  
