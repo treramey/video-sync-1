@@ -17,7 +17,7 @@
     "express-session": "^1.17.1",
     "formik": "^2.1.4",
     "massive": "^6.3.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-fade-in": "^1.0.0",
